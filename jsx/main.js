@@ -54,6 +54,7 @@ class Div { // 大写时运行
         parent.appendChild(this.root )
     }
     setAttribute(name ,value){
+        console.log(111)
         this.root.setAttribute( name , value)
     }
     appendChild(child){
@@ -66,7 +67,6 @@ let cc = <Div id="test">
     <span id="ee">a</span>
     <span id="bb">b</span>
     <span id="cc">c</span>
-
 </Div>
 
 cc.mountTo(document.body)

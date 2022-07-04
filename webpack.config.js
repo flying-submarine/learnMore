@@ -43,6 +43,11 @@ module.exports = {
         test: /.(png|jpg|gif|jpeg)$/,
         // exclude: /(node_modules|bower_components)/,
         use: "file-loader"
+      },
+      {
+        test: /.(woff|woff|eot|ttf)$/,
+        // exclude: /(node_modules|bower_components)/,
+        use: "file-loader"
       }
     ]
   },

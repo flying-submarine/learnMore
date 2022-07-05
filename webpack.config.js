@@ -1,10 +1,9 @@
 const path = require('path');
-
+const webpack = require('webpack');
 module.exports = {
   entry: {
     index:'./src/index.js',
     search:'./src/search.js',
-
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -40,12 +39,31 @@ module.exports = {
         ]
       },
       {
-        test: /.(png|jpg|gif|jpeg)$/,
+        test: /\.(png|jpg|gif|jpeg)$/,
+        // exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader : "url-loader",
+            options : {
+                limit : 10240
+              }
+          }
+        ]
+      },
+      {
+        test: /.(woff|woff2|eot|ttf|otf)$/,
         // exclude: /(node_modules|bower_components)/,
         use: "file-loader"
       }
     ]
   },
-  mode : "production",
-  plugins:[]
+  mode : "development",
+  plugins:[
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devServer:{
+    static: './dist',
+    // contentBase : "./dist",
+    hot:true
+  }
 };

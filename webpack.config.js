@@ -40,12 +40,19 @@ module.exports = {
         ]
       },
       {
-        test: /.(png|jpg|gif|jpeg)$/,
+        test: /\.(png|jpg|gif|jpeg)$/,
         // exclude: /(node_modules|bower_components)/,
-        use: "file-loader"
+        use: [
+          {
+            loader : "url-loader",
+            options : {
+                limit : 10240
+              }
+          }
+        ]
       },
       {
-        test: /.(woff|woff|eot|ttf)$/,
+        test: /.(woff|woff2|eot|ttf|otf)$/,
         // exclude: /(node_modules|bower_components)/,
         use: "file-loader"
       }

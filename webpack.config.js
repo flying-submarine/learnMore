@@ -1,10 +1,9 @@
 const path = require('path');
-
+const webpack = require('webpack');
 module.exports = {
   entry: {
     index:'./src/index.js',
     search:'./src/search.js',
-
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -58,6 +57,13 @@ module.exports = {
       }
     ]
   },
-  mode : "production",
-  plugins:[]
+  mode : "development",
+  plugins:[
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devServer:{
+    static: './dist',
+    // contentBase : "./dist",
+    hot:true
+  }
 };

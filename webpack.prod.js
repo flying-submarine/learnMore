@@ -1,7 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CSSMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -63,12 +63,43 @@ module.exports = {
   },
   mode : "production",
   plugins:[
-    new MiniCssExtractPlugin({
+    new MiniCssExtractPlugin({ // hash配置
       filename:"[name]_[contenthash:8].css"
     }),
-    new CSSMinimizerWebpackPlugin({
+    new CSSMinimizerWebpackPlugin({ // css压缩
       test : /\.css$/g,
       // cssProcessor: require('cssnano'), //cssnano：css处理器
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src/search.html'),
+      filename:"search.html",
+      chunks:["search"],
+      // bundle：打包最终生成的文件
+      // chunk：每个chunk是由多个module组成，可以通过代码分割成多个chunk。
+      // module：webpack中的模块（js、css、图片等等）
+      inject:true,
+      minify:{
+        html5:true,
+        collapseWhitespace:true,
+        preserveLineBreaks:false,
+        minifyCSS:true,
+        minifyJS:true,
+        removeComments:false,
+      }
+    }),
+    new HtmlWebpackPlugin({ // html 压缩
+      template: path.join(__dirname, 'src/index.html'),
+      filename:"index.html",
+      chunks:["index"],
+      inject:true,
+      minify:{
+        html5:true,
+        collapseWhitespace:true,
+        preserveLineBreaks:false,
+        minifyCSS:true,
+        minifyJS:true,
+        removeComments:false,
+      }
     })
   ]
 };

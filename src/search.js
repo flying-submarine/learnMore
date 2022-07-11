@@ -1,7 +1,7 @@
 "use strict"
 import React from "react"
 import ReactDOM from "react-dom"
-import Miao from "./images/miao.jpeg"
+import Miao from "./images/min.jpeg"
 
 import "./search.less"
 

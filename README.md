@@ -13,3 +13,6 @@ webpack 构建出来的 bundle.js 本身是不具备热更新的能力的，HotM
 
 webpack的chunkhash没办法配合热更新使用
 MiniCssExtractPlugin提取出独立文件（打包时 文件不改变 不更新hash） 无法和style-loader（插入header）一起使用
+
+ loader 有严格的顺序要求
+plugins 可能会存在顺序要求，不过很少，不是很严格，这个也是 webpack 会让人困惑的地方。因为 plugin 是通过 webpack 的 Tapable 的钩子进行事件控制的，也就是插件通过事件监听的方式进行执行。用的plugin会自己绑定相应的事件，所以一般不用关注顺序。

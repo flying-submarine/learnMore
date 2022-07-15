@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 module.exports = {
   entry: {
     index:'./src/index.js',
@@ -59,7 +60,8 @@ module.exports = {
   },
   mode : "development",
   plugins:[
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin()
   ],
   devServer:{
     static: './dist',

@@ -5,13 +5,13 @@ function PromiseDemo(fn){
     const resolve = (value)=>{
         if(_this.prmState== "pending"){
             _this. prmState = "fullfilled"
-            _this.promiseValue = value
+            _this.prmValue = value
         }
     }
     const reject = (value)=>{
         if(_this.prmState== "pending"){
             _this. prmState = "rejected"
-            _this.promiseValue = value
+            _this.prmValue = value
         }  
     }
 

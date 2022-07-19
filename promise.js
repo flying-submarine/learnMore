@@ -1,17 +1,22 @@
 function PromiseDemo(fn){
-    const _this = this
-    _this.prmState = "pending"
-    _this.prmValue = undefined
-    const resolve = (value)=>{
-        if(_this.prmState== "pending"){
-            _this. prmState = "fullfilled"
-            _this.prmValue = value
+    this.prmState = "pending"
+    this.prmValue = undefined
+    this.thenCallback = undefined
+    const resolve = function(value){
+        if(this.prmState== "pending"){
+            this. prmState = "fullfilled"
+            this.prmValue = value
+            setTimeout(()=>{
+                if(this.thenCallback){
+                    this.thenCallback(value)
+                }
+            },0)
         }
     }
-    const reject = (value)=>{
-        if(_this.prmState== "pending"){
-            _this. prmState = "rejected"
-            _this.prmValue = value
+    const reject = function(value){
+        if(this.prmState== "pending"){
+            this. prmState = "rejected"
+            this.prmValue = value
         }  
     }
 
@@ -20,7 +25,10 @@ function PromiseDemo(fn){
     }
 }
 
-PromiseDemo.prototype.then = (callback)=>{
+PromiseDemo.prototype.then = function(callback){
+    this.thenCallback = function(value){
+        callback(value)
+    }
 }
 
 PromiseDemo.prototype.catch = (callback)=>{

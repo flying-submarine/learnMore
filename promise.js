@@ -8,11 +8,18 @@ function PromiseDemo(fn){
         if(_this.prmState== "pending"){
             _this. prmState = "fullfilled"
             _this.prmValue = value
-            setTimeout(()=>{
-                if(_this.thenCallback){
-                    _this.thenCallback(value)
-                }
-            })
+            if (value instanceof PromiseDemo ){
+                value.then(function(res){
+                    _this.thenCallback(res)
+
+                })
+            } else {
+                setTimeout(()=>{
+                    if(_this.thenCallback){
+                        _this.thenCallback(value)
+                    }
+                })
+            }
         }
     }
     const reject = function(value){
@@ -30,9 +37,13 @@ function PromiseDemo(fn){
 }
 
 PromiseDemo.prototype.then = function(callback){
-    this.thenCallback = function(value){
-        callback(value)
-    }
+    var _this = this
+    return new PromiseDemo(function(resolve,reject){
+        _this.thenCallback = function(value){
+            var callbackRes = callback(value)
+            resolve(callbackRes)
+        }
+    })
 }
 
 PromiseDemo.prototype.catch = (callback)=>{
@@ -44,6 +55,8 @@ var p = new PromiseDemo(function(resolve,reject){
 console.log(p)
 p.then(function(res){
     console.log(res,"cc3")
+}).then(function(res){
+    console.log(res,"cc")
 })
 
 

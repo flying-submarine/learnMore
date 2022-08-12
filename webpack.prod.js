@@ -36,11 +36,25 @@ module.exports = {
       {
         test: /.less$/,
         // exclude: /(node_modules|bower_components)/,
+        // 注意：执行顺序（从下往上，从右往左，从后往前）
         use: [
           // 'style-loader',
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'less-loader',
+          {
+            loader:"postcss-loader",
+            options:{
+              postcssOptions:{
+                plugins:[
+                  require('autoprefixer')({
+                    overrideBrowserslist:["ios 7","last 2 version",">1%"]
+                  }),
+                  // require('postcss-preset-env')
+                ]
+              }
+            }
+          },
+          'less-loader'
         ]
       },
       {

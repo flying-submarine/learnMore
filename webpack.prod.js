@@ -54,6 +54,14 @@ module.exports = {
               }
             }
           },
+          {
+            loader:"px2rem-loader",
+            options:{
+              remUnit:75, // 一个rem = 75px
+              remPrecision:8 // px转换rem 精确位数
+
+            }
+          },
           'less-loader'
         ]
       },
